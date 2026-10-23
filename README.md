@@ -1,117 +1,336 @@
-# IKEA Gifting: Customer Analytics and RFM Segmentation
+# 🛍️ IKEA Gifting: Customer Analytics & RFM Segmentation
 
-*An end to end data analytics project using SQL, Python, and Power BI*
-
----
-
-## Disclaimer
-
-**IKEA Gifting** is a fictional company name created for this educational portfolio project. It is not affiliated with, endorsed by, or representative of the real IKEA corporation in any way. All financial figures, customer counts, and business metrics shown in this project are derived entirely from a public, anonymized transactional dataset and do not reflect any real company's actual performance. The IKEA visual branding used in the dashboard is for design and storytelling purposes only.
+*An end-to-end data analytics project using SQL, Python, and Power BI.*
 
 ---
 
-## Project Overview
+## ⚠️ Disclaimer
 
-This project simulates a real world analytics engagement for a fictional UK based gifting and home decor ecommerce brand, **IKEA Gifting**. The goal was to take raw, messy transactional data all the way through to a decision ready business intelligence dashboard, using the same workflow a data analyst would follow inside a real company: define the business problem first, clean and validate the data in SQL, build the analytical logic in Python, and deliver the insight through an interactive Power BI report.
+**IKEA Gifting** is a fictional company created for this educational analytics project. It is not affiliated with, endorsed by, or representative of the real IKEA corporation.
 
----
-
-## My Thinking Process
-
-Most portfolio projects start with a dataset and work backward to a question. I reversed that. I started by writing a **Business Requirements Document** before touching any data, forcing myself to define exactly what business decision this analysis needed to support. Every technical step after that traces back to one of the questions in that document.
-
-I also deliberately chose a dataset that's less commonly used (Online Retail II instead of the more saturated Olist dataset), and chose to genuinely clean the data rather than use a pre cleaned version, so this project includes real data quality problems: mixed date formats, invalid row types, duplicate transactions, and missing customer identifiers. Solving these is a large part of what this project actually demonstrates.
+All financial figures, customer counts, and business metrics presented in this project are derived from a public, anonymized transactional dataset and do not reflect IKEA's actual business performance. Any IKEA-inspired visual branding used in the dashboard is for illustrative and storytelling purposes only.
 
 ---
 
-## Business Problem
+## 📌 Project Overview
 
-The business wants to identify its most valuable customers and reduce churn among customers who are at risk of leaving. Leadership currently has no structured view of customer value, so retention efforts are reactive instead of targeted.
+This project simulates a real-world analytics engagement for a fictional UK-based gifting and home decor e-commerce business, **IKEA Gifting**.
 
-## Business Questions Answered
+The objective is to transform raw transactional data into a decision-ready business intelligence solution using an end-to-end data analytics workflow. The project combines SQL for data cleaning and validation, Python for customer analytics and segmentation, and Power BI for interactive visualization and reporting.
 
-- Who are our most valuable customers, and how much revenue do they actually contribute?
-- Which customers have gone quiet and are at risk of churning?
-- How does customer value and retention trend across time, by month, quarter, and year?
-- How does customer value and churn differ across geographic markets?
-- What specific, concrete actions should the business take for each customer segment?
+The analysis focuses on understanding customer value, identifying customers at risk of becoming inactive, evaluating purchasing patterns, and developing actionable recommendations to improve customer retention.
 
-## Key Findings
-
-- **Champions** represent roughly 22% of the customer base but generate close to **68% of total revenue** — a clear 80/20 concentration.
-- Overall churn sits at **50.86%** (90 day inactivity threshold), indicating retention is a significant, not marginal, business risk.
-- Average customer value varies sharply by segment, from a few hundred for Lost customers to several thousand for Champions.
-- Revenue shows clear seasonal spikes in Q4, consistent with a gifting focused product category.
+The project follows a business-first approach, connecting technical analysis to practical business questions and measurable outcomes.
 
 ---
 
-## Data Source
+## 🧠 Analytical Approach
 
-**Online Retail II**, UCI Machine Learning Repository, donated by Daqing Chen. A real, anonymized transactional dataset from a UK based, non store online retailer selling all occasion gift ware, covering December 2009 to December 2011. 1,067,371 raw transaction rows across two sheets. Licensed under Creative Commons Attribution 4.0 International.
+The project begins by defining the business problem and establishing clear analytical requirements before working with the data.
 
-## Tools and Tech Stack
+Rather than focusing solely on technical implementation, the workflow connects each stage of the analysis to specific business questions. Data quality issues are investigated and addressed before customer metrics are calculated, helping ensure that the resulting insights are meaningful and reliable.
 
-| Tool | Purpose in this project |
-|---|---|
-| SQL Server / SSMS | Data import, cleaning, deduplication, and exploratory querying on the full 1M+ row dataset |
-| Python (pandas) | RFM calculation, customer scoring, segmentation logic, and churn flagging |
-| Jupyter Notebook | Interactive development environment for the Python analysis |
-| Power BI Desktop | Three page interactive dashboard: executive summary and RFM deep dive |
-| DAX | Measures for customer counts, revenue totals, and average customer value |
-
-## Core Concepts Demonstrated
-
-- **RFM Analysis** — scoring customers on Recency, Frequency, and Monetary value to quantify customer worth on a comparable scale
-- **Customer Segmentation** — translating raw RFM scores into business meaningful groups (Champions, Loyal, At Risk, New, Needs Attention, Lost)
-- **Churn Definition and Flagging** — applying a fixed inactivity threshold to identify customers at risk of lapsing
-- **Data Quality Handling** — resolving mixed date formats, invalid type conversions, and duplicate detection using SQL window functions
-- **Dimensional Modeling for BI** — structuring a single unified table so multiple report pages can share one clean source without manual relationships
-- **Interactive BI Design** — slicers, bookmark based toggles, and a multi page navigation structure inside Power BI
+The Online Retail II dataset provides an opportunity to work with real-world transactional data containing challenges such as inconsistent date formats, duplicate transactions, invalid values, and missing customer identifiers.
 
 ---
 
-## Project Workflow
+## 🎯 Business Problem
 
-**Step 1 — Business Requirements Document.** Defined scope, business questions, key definitions, and success criteria before any data work began.
+The business wants to identify its most valuable customers and reduce customer churn by recognizing customers who may be at risk of leaving.
 
-**Step 2 — SQL, Data Cleaning and Exploration.** Imported both raw sheets into SQL Server, corrected data types, resolved a mixed date format issue affecting over half the dataset, removed 32,907 exact duplicate rows, and validated row counts at every step against the published UCI total.
+Without a structured view of customer value and purchasing behavior, retention efforts can become reactive rather than targeted.
 
-**Step 3 — Python, RFM Segmentation.** Loaded the cleaned data into pandas, calculated Recency, Frequency, and Monetary value per customer, scored each customer on a 1 to 5 scale per dimension, and assigned each of the 5,881 customers to one of six segments. Added a 90 day churn flag.
+The goal is to develop a data-driven customer analytics framework that helps the business understand customer segments, evaluate revenue contribution, identify inactivity patterns, and make informed customer engagement decisions.
 
-**Step 4 — Power BI, Dashboard Build.** Merged the segmentation results back onto transaction level data to create a single analysis ready table, then built a three page report.
+## ❓ Business Questions
 
----
-
-## Dashboard Structure
-
-**Page 1 — Home:** project title, navigation to the two report pages, and a glossary defining Recency, Frequency, Monetary, and Churned %.
-
-**Page 2 — Business Overview:** total customers, total revenue, churn %, and average customer value as headline KPIs, with a revenue/customer toggle, segment breakdowns, and month/quarter/year trend views. Filterable by month, quarter, year, country, segment, and churn status.
-
-**Page 3 — RFM Analysis:** a segment performance summary table showing customer count, revenue, and average R/F/M score per segment, average customer value by segment, and churn % trended over time.
+* 👥 Who are the most valuable customers, and how much revenue do they contribute?
+* ⚠️ Which customers have become inactive and may be at risk of churning?
+* 📅 How do customer value and retention trends change across months, quarters, and years?
+* 🌍 How does customer value and churn vary across geographic markets?
+* 💰 Which customer segments contribute the greatest share of revenue?
+* 🎯 What targeted actions can help improve customer engagement and retention?
+* 📊 How can customer analytics support better business decisions?
 
 ---
 
-## Sample SQL: Handling Mixed Date Formats
+## 🔍 Key Findings
+
+The analysis highlights several important patterns in customer value, inactivity, and revenue performance.
+
+* 🏆 **Customer Value Concentration:** Champions account for approximately **22% of customers while contributing close to 68% of total revenue**, highlighting the importance of high-value customer relationships.
+* ⚠️ **Customer Churn:** The observed churn rate is approximately **50.86%**, using a 90-day inactivity threshold.
+* 💎 **Customer Value Differences:** Average customer value varies considerably across segments, with Champions contributing substantially more monetary value than Lost customers.
+* 🎁 **Seasonal Revenue Trends:** Revenue shows noticeable peaks during the fourth quarter, consistent with seasonal purchasing patterns often associated with gifting products.
+
+These findings illustrate the potential value of customer segmentation and retention analysis in understanding business performance.
+
+---
+
+## 📂 Data Source
+
+**Dataset:** Online Retail II
+**Source:** UCI Machine Learning Repository
+**Original Contributor:** Daqing Chen
+**Period Covered:** December 2009 – December 2011
+**Dataset Size:** Approximately 1,067,371 raw transaction records across two sheets
+**License:** Creative Commons Attribution 4.0 International, as specified by the dataset source.
+
+The Online Retail II dataset contains anonymized transactional data from a UK-based, non-store online retailer selling giftware and other products for various occasions.
+
+It includes transaction-level information that supports customer behavior analysis, sales performance evaluation, and customer segmentation.
+
+🔗 **Dataset:** https://archive.ics.uci.edu/dataset/502/online+retail+ii
+
+---
+
+## 🛠️ Tools & Technologies
+
+| Tool                  | Purpose                                                                                                                     |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| 🗄️ SQL Server / SSMS | Data import, cleaning, deduplication, validation, and exploratory querying across more than one million transaction records |
+| 🐍 Python             | RFM calculations, customer scoring, segmentation, and churn flagging                                                        |
+| 🧮 Pandas             | Data manipulation, transformation, and analytical calculations                                                              |
+| 📓 Jupyter Notebook   | Interactive Python development and analysis                                                                                 |
+| 📊 Power BI Desktop   | Interactive dashboards and business intelligence reporting                                                                  |
+| 📐 DAX                | Measures for customer counts, revenue totals, churn percentage, and average customer value                                  |
+
+---
+
+## 💡 Core Concepts Demonstrated
+
+### 1. 📈 RFM Analysis
+
+RFM analysis evaluates customers using three dimensions:
+
+* **Recency:** How recently a customer made a purchase.
+* **Frequency:** How often a customer makes purchases.
+* **Monetary Value:** How much a customer spends.
+
+These metrics help quantify customer value and compare purchasing behavior across different customer groups.
+
+### 2. 👥 Customer Segmentation
+
+Customers are grouped into meaningful segments based on their RFM scores.
+
+The six segments used in this analysis are:
+
+* 🏆 Champions
+* 💎 Loyal Customers
+* ⚠️ At Risk
+* 🆕 New Customers
+* 🔔 Needs Attention
+* 💤 Lost Customers
+
+This segmentation helps distinguish high-value customers from customers who may require additional engagement.
+
+### 3. 🚨 Churn Definition and Flagging
+
+A fixed inactivity threshold is applied to identify customers who have not purchased within the selected period.
+
+A 90-day threshold is used to flag potentially inactive customers and investigate possible retention opportunities.
+
+### 4. 🧹 Data Quality Management
+
+The data preparation process addresses several real-world data quality challenges, including:
+
+* Mixed date formats
+* Invalid data type conversions
+* Duplicate transactions
+* Missing customer identifiers
+* Data validation and consistency checks
+
+SQL techniques, including window functions and conversion functions, support data cleaning and validation.
+
+### 5. 🏗️ Business Intelligence Data Modeling
+
+A unified analytical dataset connects transaction-level information with customer segmentation results, enabling consistent reporting across multiple Power BI dashboard pages.
+
+### 6. 🎨 Interactive Dashboard Design
+
+Power BI features such as slicers, bookmarks, interactive filters, and multi-page navigation make it easier to explore customer segments, revenue trends, and business performance.
+
+---
+
+## 🔄 Project Workflow
+
+### Step 1: 📋 Business Requirements Document
+
+Defined the business problem, project scope, key business questions, analytical definitions, and success criteria before beginning the data analysis.
+
+### Step 2: 🗄️ SQL — Data Cleaning & Exploration
+
+* Imported both raw dataset sheets into SQL Server.
+* Inspected the source data and corrected data types.
+* Investigated mixed date formats affecting a substantial portion of the dataset.
+* Standardized dates using SQL conversion functions.
+* Identified and removed **32,907 exact duplicate rows**.
+* Examined missing customer identifiers and invalid values.
+* Validated row counts and data consistency throughout the cleaning process.
+
+### Step 3: 🐍 Python — RFM Analysis & Customer Segmentation
+
+* Loaded the cleaned transactional data into Pandas.
+* Calculated Recency, Frequency, and Monetary value for each customer.
+* Assigned RFM scores on a scale of 1 to 5 for each dimension.
+* Classified **5,881 customers into six customer segments**.
+* Applied a 90-day inactivity threshold to flag potentially churned customers.
+* Prepared customer-level analytical outputs for business intelligence reporting.
+
+### Step 4: 📊 Power BI — Dashboard Development
+
+* Combined customer segmentation results with transaction-level data.
+* Prepared a unified dataset for dashboard reporting.
+* Developed a three-page interactive Power BI report.
+* Created measures for revenue, customer counts, churn percentage, and average customer value.
+* Added filters, navigation, and interactive visual elements to support business exploration.
+
+---
+
+## 📊 Dashboard Structure
+
+### 🏠 Page 1 — Home
+
+Provides an introduction to the project and navigation to the main report pages.
+
+Includes a glossary explaining key concepts such as Recency, Frequency, Monetary Value, and Churn Percentage.
+
+### 📈 Page 2 — Business Overview
+
+Provides a high-level view of customer and revenue performance.
+
+**Key Performance Indicators:**
+
+* Total Customers
+* Total Revenue
+* Churn Percentage
+* Average Customer Value
+
+**Visualizations and Features:**
+
+* Revenue and customer view toggle
+* Customer segment breakdowns
+* Revenue contribution by segment
+* Monthly, quarterly, and yearly trends
+* Interactive filtering by date, country, customer segment, and churn status
+
+### 🎯 Page 3 — RFM Analysis
+
+Focuses on customer value and segment-level performance.
+
+**Key Visualizations:**
+
+* Customer count by segment
+* Revenue contribution by segment
+* Average Recency, Frequency, and Monetary scores
+* Average customer value by segment
+* Customer churn percentage trends over time
+
+The dashboard enables users to explore customer segments and understand how purchasing behavior and customer value differ across groups.
+
+---
+
+## 💻 Sample SQL: Handling Mixed Date Formats
+
+The following SQL example demonstrates how to standardize dates stored in different formats using SQL Server conversion functions.
 
 ```sql
 SELECT
-    Invoice, StockCode, Description, Quantity,
+    Invoice,
+    StockCode,
+    Description,
+    Quantity,
     COALESCE(
         TRY_CONVERT(datetime2, InvoiceDate, 120),
         TRY_CONVERT(datetime2, InvoiceDate, 105)
     ) AS InvoiceDate,
     TRY_CONVERT(decimal(10,2), Price) AS Price,
-    Customer_ID, Country
+    Customer_ID,
+    Country
 INTO dbo.RetailCombined
 FROM dbo.[Year 2009-2010];
 ```
 
-## Sample Python: RFM Scoring
+**How it works:**
+
+* `TRY_CONVERT()` attempts to convert the date using the specified format.
+* Style `120` supports the `yyyy-mm-dd hh:mi:ss` format.
+* Style `105` supports the `dd-mm-yyyy` date format.
+* `COALESCE()` returns the first successful conversion.
+* `TRY_CONVERT()` returns `NULL` when a value cannot be converted.
+
+This approach helps standardize inconsistent date values before further analysis. The query assumes the source column names and data types match the database schema.
+
+---
+
+## 🐍 Sample Python: RFM Scoring
+
+The following Python code demonstrates quintile-based scoring for Recency, Frequency, and Monetary value.
 
 ```python
-rfm['R_Score'] = pd.qcut(rfm['Recency'], 5, labels=[5, 4, 3, 2, 1]).astype(int)
-rfm['F_Score'] = pd.qcut(rfm['Frequency'].rank(method='first'), 5, labels=[1, 2, 3, 4, 5]).astype(int)
-rfm['M_Score'] = pd.qcut(rfm['Monetary'], 5, labels=[1, 2, 3, 4, 5]).astype(int)
+rfm['R_Score'] = pd.qcut(
+    rfm['Recency'],
+    5,
+    labels=[5, 4, 3, 2, 1]
+).astype(int)
+
+rfm['F_Score'] = pd.qcut(
+    rfm['Frequency'].rank(method='first'),
+    5,
+    labels=[1, 2, 3, 4, 5]
+).astype(int)
+
+rfm['M_Score'] = pd.qcut(
+    rfm['Monetary'],
+    5,
+    labels=[1, 2, 3, 4, 5]
+).astype(int)
 ```
+
+**Scoring logic:**
+
+* **Recency:** Customers who purchased more recently receive higher scores.
+* **Frequency:** Customers who purchase more frequently receive higher scores.
+* **Monetary:** Customers who spend more receive higher scores.
+
+The resulting scores provide a consistent framework for evaluating customers and assigning them to relevant segments.
+---
+
+## 🎯 Business Value & Recommendations
+
+The analysis provides a framework for translating customer data into practical business decisions.
+
+Potential applications include:
+
+* **🏆 Retain High-Value Customers:** Identify Champions and Loyal Customers and explore strategies to strengthen long-term relationships.
+* **⚠️ Re-engage At-Risk Customers:** Use inactivity indicators to identify customers who may benefit from targeted engagement.
+* **💎 Improve Customer Value:** Examine purchasing behavior across segments to identify opportunities for repeat purchases and increased spending.
+* **📅 Understand Seasonality:** Use historical revenue patterns to support promotional planning and inventory decisions.
+* **🌍 Evaluate Geographic Markets:** Compare customer value and revenue performance across countries.
+* **📊 Enable Data-Driven Decisions:** Use interactive dashboards to monitor performance and communicate findings clearly.
+
+These recommendations should be interpreted in conjunction with the validated analytical results and the limitations of the dataset.
+
+---
+
+## 🧠 Skills Demonstrated
+
+* SQL querying and data transformation
+* Data cleaning and quality validation
+* Python and Pandas
+* Exploratory Data Analysis (EDA)
+* RFM analysis and customer segmentation
+* Customer inactivity and churn analysis
+* Data modeling for business intelligence
+* Power BI dashboard development
+* DAX measures and KPI reporting
+* Business problem-solving and analytical storytelling
+
+---
+
+## ⚠️ Final Disclaimer
+
+This is an independent educational analytics project based on public, anonymized retail transaction data. IKEA Gifting is a fictional business concept created for analytical storytelling. The findings do not represent the actual operations, financial performance, customers, or business decisions of IKEA.
+
+---
 
