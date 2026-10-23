@@ -2,8 +2,6 @@
 
 *An end to end data analytics project using SQL, Python, and Power BI*
 
-**Author:** Mansi Goel | YouTube: [Mansi G.](https://www.youtube.com/@Mansi.goel.offical) | Analytics Engineer
-
 ---
 
 ## Disclaimer
@@ -16,15 +14,13 @@
 
 This project simulates a real world analytics engagement for a fictional UK based gifting and home decor ecommerce brand, **IKEA Gifting**. The goal was to take raw, messy transactional data all the way through to a decision ready business intelligence dashboard, using the same workflow a data analyst would follow inside a real company: define the business problem first, clean and validate the data in SQL, build the analytical logic in Python, and deliver the insight through an interactive Power BI report.
 
-Built as part of a public tutorial series to teach **SQL, Python, and Power BI together as one connected skillset**, rather than as three isolated topics.
-
 ---
 
 ## My Thinking Process
 
 Most portfolio projects start with a dataset and work backward to a question. I reversed that. I started by writing a **Business Requirements Document** before touching any data, forcing myself to define exactly what business decision this analysis needed to support. Every technical step after that traces back to one of the questions in that document.
 
-I also deliberately chose a dataset that's less commonly used in existing tutorials (Online Retail II instead of the more saturated Olist dataset), and chose to genuinely clean the data rather than use a pre cleaned version, so this project includes real data quality problems: mixed date formats, invalid row types, duplicate transactions, and missing customer identifiers. Solving these is a large part of what this project actually demonstrates.
+I also deliberately chose a dataset that's less commonly used (Online Retail II instead of the more saturated Olist dataset), and chose to genuinely clean the data rather than use a pre cleaned version, so this project includes real data quality problems: mixed date formats, invalid row types, duplicate transactions, and missing customer identifiers. Solving these is a large part of what this project actually demonstrates.
 
 ---
 
@@ -118,19 +114,4 @@ rfm['R_Score'] = pd.qcut(rfm['Recency'], 5, labels=[5, 4, 3, 2, 1]).astype(int)
 rfm['F_Score'] = pd.qcut(rfm['Frequency'].rank(method='first'), 5, labels=[1, 2, 3, 4, 5]).astype(int)
 rfm['M_Score'] = pd.qcut(rfm['Monetary'], 5, labels=[1, 2, 3, 4, 5]).astype(int)
 ```
-
----
-
-## How to Reproduce This Project
-
-1. Download the Online Retail II dataset from the UCI Machine Learning Repository
-2. Run the SQL scripts in `01_sql` in order to recreate the cleaned `RetailCleaned` table
-3. Export `RetailCleaned` to CSV and run the notebook in `02_python` to generate the segmented dataset
-4. Open the Power BI file in `03_powerbi` and point it to the exported Excel file to refresh
-
----
-
-## Connect
-
-This project is on my YouTube channel, **Mansi G.**, where I break down real, end to end data analyst projects for freshers and early career professionals. Full build walkthrough video linked above.
 
